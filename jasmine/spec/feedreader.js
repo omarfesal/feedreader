@@ -9,17 +9,19 @@ $(function() {
         });
 
         
-        it('Urls of feeds are defined', function() {
+        it('Urls of feeds are defined and is not empty', function() {
             for(let x = 0 ; x < allFeeds.length ; x++){
                 expect(allFeeds[x].url).toBeDefined();
+                expect(allFeeds[x].url.length).not.toBe(0);
             }
         });
 
 
 
-        it('Urls of feeds are defined', function() {
+        it('Urls of feeds are defined and is not empty', function() {
             for(let x = 0 ; x < allFeeds.length ; x++){
                 expect(allFeeds[x].name).toBeDefined();
+                expect(allFeeds[x].name.length).not.toBe(0);
             }
         });
         
@@ -79,17 +81,21 @@ $(function() {
         var firFeeds,secFeeds;
 
         beforeEach(function(done){
-            loadFeed(0);
-            firFeeds = $(".feed");
-            done();
+            loadFeed(0,function(){
+                firFeeds = $(".feed").text();
+                done();
+    
+            });
         });
 
     
         it("when a new feed is loaded by the loadFeed function that the content actually changes", function(done){
-            loadFeed(1);
-            secFeeds = $(".feed");
-            expect(firFeeds).not.toBe(secFeeds);
-            done();
+            loadFeed(1,function(){
+                secFeeds = $(".feed").text();
+                expect(firFeeds).not.toBe(secFeeds);
+                done();
+            });
+
         });
      
     
